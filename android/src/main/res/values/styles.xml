@@ -1,0 +1,67 @@
+<resources>
+    <style name="MapboxCustomManeuverTurnIconStyle" parent="MapboxStyleTurnIconManeuver">
+        <item name="maneuverTurnIconColor">#FFFFFF</item>
+        <item name="maneuverTurnIconShadowColor">#303030</item>
+    </style>
+
+    <style name="MapboxCustomManeuverStyle" parent="MapboxStyleManeuverView">
+        <item name="maneuverViewBackgroundColor">#303030</item>
+        <item name="subManeuverViewBackgroundColor">#707070</item>
+        <item name="upcomingManeuverViewBackgroundColor">#707070</item>
+        <item name="maneuverViewIconStyle">@style/MapboxCustomManeuverTurnIconStyle</item>
+        <item name="laneGuidanceManeuverIconStyle">@style/MapboxCustomManeuverTurnIconStyle</item>
+    </style>
+
+    <style name="PrimaryManeuverTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">22dp</item>
+        <item name="android:fontFamily">@font/josefinsans_regular</item>
+    </style>
+
+    <style name="SecondaryManeuverTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#9B9B9B</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:fontFamily">@font/josefinsans_regular</item>
+    </style>
+
+    <style name="SubManeuverTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#9B9B9B</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:fontFamily">@font/josefinsans_regular</item>
+    </style>
+
+    <style name="StepDistanceTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#9B9B9B</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="UpcomingPrimaryManeuverTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:fontFamily">@font/josefinsans_regular</item>
+    </style>
+
+    <style name="UpcomingSecondaryManeuverTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#9B9B9B</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:fontFamily">@font/josefinsans_regular</item>
+    </style>
+
+    <style name="UpcomingManeuverStepDistanceTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#9B9B9B</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="StatusViewTextAppearance">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:fontFamily">@font/josefinsans_regular</item>
+    </style>
+
+    <style name="MapboxCustomSpeedLimitStyle" parent="MapboxStyleSpeedLimit">
+        <item name="speedLimitTextColor">#FFFFFF</item>
+        <item name="speedLimitMutcdBorderColor">#FA0034</item>
+        <item name="speedLimitBackgroundColor">#3A3A3A</item>
+        <item name="speedLimitViennaBorderColor">#FFFFFF</item>
+    </style>
+</resources>

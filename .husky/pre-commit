@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm run lint:fix
+
+npm --no-git-tag-version version prerelease && git add package.json 
+[ -e "package-lock.json" ] && git add package-lock.json || true
+[ -e "yarn.lock" ] && git add yarn.lock || true
