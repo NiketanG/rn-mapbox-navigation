@@ -52,7 +52,8 @@ class MapboxNavigationFreeDriveManager: RCTViewManager {
     DispatchQueue.main.async {
       let mapboxNavigationFreeDriveView = self.bridge.uiManager.view(forReactTag: node) as! MapboxNavigationFreeDriveView
       
-      mapboxNavigationFreeDriveView.startNavigation()
+      mapboxNavigationFreeDriveView.startNavigation(
+        origin: origin, destination: destination, waypoints: waypoints, styles: styles, legIndex: legIndex, cameraType: cameraType, padding: padding)
     }
   }
 

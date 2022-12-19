@@ -29,6 +29,7 @@ class MapboxNavigationView: UIView, NavigationMapViewDelegate, NavigationViewCon
   @objc var showsEndOfRouteFeedback: Bool = false
   @objc var hideStatusView: Bool = false
   @objc var mute: Bool = false
+  @objc var locale: NSString = "en_US"
   
   @objc var onLocationChange: RCTDirectEventBlock?
   @objc var onRouteProgressChange: RCTDirectEventBlock?
@@ -78,60 +79,74 @@ class MapboxNavigationView: UIView, NavigationMapViewDelegate, NavigationViewCon
     navigationViewportDataSource.options.followingCameraOptions.zoomUpdatesAllowed = false
     navigationViewportDataSource.followingMobileCamera.zoom = 13.0
     navigationMapView.navigationCamera.viewportDataSource = navigationViewportDataSource
-
+    navigationMapView.localizeLabels();
+      
+      
+      
+      
     //parentVC.addChild(navigationMapView)
     addSubview(navigationMapView)
     //navigationMapView.frame = bounds
     //navigationMapView.didMove(toParentViewController: parentVC)
 
-    embedding = false
-    embedded = true
+//    embedding = false
+//    embedded = true
 
-    //guard origin.count == 2 && destination.count == 2 else { return }
+    guard origin.count == 2 && destination.count == 2 else { return }
     
     //embedding = true
 
-    //let originWaypoint = Waypoint(coordinate: CLLocationCoordinate2D(latitude: origin[1] as! CLLocationDegrees, longitude: origin[0] as! CLLocationDegrees))
-    //let destinationWaypoint = Waypoint(coordinate: CLLocationCoordinate2D(latitude: destination[1] as! CLLocationDegrees, longitude: destination[0] as! CLLocationDegrees))
+    let originWaypoint = Waypoint(coordinate: CLLocationCoordinate2D(latitude: origin[1] as! CLLocationDegrees, longitude: origin[0] as! CLLocationDegrees))
+    let destinationWaypoint = Waypoint(coordinate: CLLocationCoordinate2D(latitude: destination[1] as! CLLocationDegrees, longitude: destination[0] as! CLLocationDegrees))
 
-    // let options = NavigationRouteOptions(waypoints: [originWaypoint, destinationWaypoint])
-    //let options = NavigationRouteOptions(waypoints: [originWaypoint, destinationWaypoint], profileIdentifier: .automobileAvoidingTraffic)
-
-    //Directions.shared.calculate(options) { [weak self] (_, result) in
-      //guard let strongSelf = self, let parentVC = strongSelf.parentViewController else {
-        //return
-      //}
+    let options = NavigationRouteOptions(waypoints: [originWaypoint, destinationWaypoint])
       
-      //switch result {
-        //case .failure(let error):
-          //strongSelf.onError!(["message": error.localizedDescription])
-        //case .success(let response):
-          //guard let weakSelf = self else {
-            //return
-          //}
-          
-          //let navigationService = MapboxNavigationService(routeResponse: response, routeIndex: 0, routeOptions: options, simulating: strongSelf.shouldSimulateRoute ? .always : .never)
-          
-          //let navigationOptions = NavigationOptions(navigationService: navigationService)
-          //let vc = NavigationViewController(for: response, routeIndex: 0, routeOptions: options, navigationOptions: navigationOptions)
-
-          //vc.showsEndOfRouteFeedback = strongSelf.showsEndOfRouteFeedback
-          //StatusView.appearance().isHidden = strongSelf.hideStatusView
-
-          //NavigationSettings.shared.voiceMuted = strongSelf.mute;
-          
-          //vc.delegate = strongSelf
-        
-          //parentVC.addChild(vc)
-          //strongSelf.addSubview(vc.view)
-          //vc.view.frame = strongSelf.bounds
-          //vc.didMove(toParent: parentVC)
-          //strongSelf.navViewController = vc
-      //}
+    options.locale = Locale(identifier: self.locale as String)
       
-      //strongSelf.embedding = false
-      //strongSelf.embedded = true
-    //}
+      
+    Directions.shared.calculate(options) { [weak self] (_, result) in
+      guard let strongSelf = self, let parentVC = strongSelf.parentViewController else {
+        return
+      }
+      
+      switch result {
+        case .failure(let error):
+          strongSelf.onError!(["message": error.localizedDescription])
+        case .success(let response):
+          guard let weakSelf = self else {
+            return
+          }
+          
+          let navigationService = MapboxNavigationService(routeResponse: response, routeIndex: 0, routeOptions: options, simulating: strongSelf.shouldSimulateRoute ? .always : .never)
+          
+          let navigationOptions = NavigationOptions(
+            styles: [DayStyle()],
+            navigationService: navigationService)
+          
+          let vc = NavigationViewController(for: response, routeIndex: 0, routeOptions: options, navigationOptions: navigationOptions)
+          
+          vc.showsEndOfRouteFeedback = strongSelf.showsEndOfRouteFeedback
+          StatusView.appearance().isHidden = strongSelf.hideStatusView
+
+          options.self.locale = Locale(identifier: self.locale as String)
+          NavigationSettings.shared.voiceMuted = strongSelf.mute;
+
+          vc.delegate = strongSelf
+          
+          vc.modalPresentationStyle = .fullScreen
+          
+          parentVC.present(vc, animated: true, completion: nil)
+
+//          parentVC.addChild(vc)
+//          strongSelf.addSubview(vc.view)
+//          vc.view.frame = strongSelf.bounds
+//          vc.didMove(toParent: parentVC)
+//          strongSelf.navViewController = vc
+      }
+      
+        strongSelf.embedded = false
+        strongSelf.embedding = false
+    }
   }
   
   func navigationViewController(_ navigationViewController: NavigationViewController, didUpdate progress: RouteProgress, with location: CLLocation, rawLocation: CLLocation) {

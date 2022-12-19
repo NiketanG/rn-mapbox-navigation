@@ -1,10 +1,27 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '11.0'
+
+platform :ios, '12.0'
 install! 'cocoapods', :disable_input_output_paths => true
 
+$RNMBNAVVersion = '2.9.0'
+
 target 'BasicApp' do
+  
+  use_frameworks!
+
+  pre_install do |installer|
+    installer.pod_targets.each do |pod|
+      if pod.name.start_with?('react-native-') || pod.name.start_with?('ReactNative') || pod.name.start_with?('RN') || pod.name.eql?('RNPermissions') || pod.name.start_with?('Permission-')
+        def pod.build_type;
+          Pod::BuildType.static_library
+        end
+      end
+    end
+  end
+
+
   config = use_native_modules!
   pod 'rn-mapbox-navigation', :path => '../../', :inhibit_warnings => false
   $ReactNativeMapboxGLIOSVersion = '~> 8.5.0'
@@ -35,7 +52,7 @@ target 'BasicApp' do
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
     installer.pods_project.targets.each do |t|
       t.build_configurations.each do |bc|
-          bc.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+          bc.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
       end
     end
     # $RNMBNAV.post_install(installer)

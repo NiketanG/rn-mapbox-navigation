@@ -293,7 +293,7 @@ class MapboxNavigationFreeDriveView(private val context: ThemedReactContext, pri
      * [MapboxManeuverApi.getRoadShields]
      */
     private val roadShieldCallback = RouteShieldCallback { shields ->
-        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).renderManeuverWith(shields)
+//        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).renderManeuverWith(shields)
     }
 
     /**
@@ -353,7 +353,7 @@ class MapboxNavigationFreeDriveView(private val context: ThemedReactContext, pri
                 message = "Alternative available", 
                 duration = 2000L
             )
-            binding.statusView.render(status)
+//            binding.statusView.render(status)
         }
 
         override fun onRouteAlternativesError(error: RouteAlternativesError) {
@@ -399,7 +399,7 @@ class MapboxNavigationFreeDriveView(private val context: ThemedReactContext, pri
             }
 
             val speedLimitValue = speedLimitApi.updateSpeedLimit(locationMatcherResult.speedLimit)
-            binding.speedLimitView.render(speedLimitValue)
+//            binding.speedLimitView.render(speedLimitValue)
 
             // location event
             val event = Arguments.createMap()
@@ -447,8 +447,8 @@ class MapboxNavigationFreeDriveView(private val context: ThemedReactContext, pri
                 maneuvers.onValue { maneuverList ->
                     maneuverApi.getRoadShields(maneuverList, roadShieldCallback)
                 }
-                binding.maneuverContainer.visibility = View.VISIBLE
-                binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).renderManeuvers(maneuvers)
+//                binding.maneuverContainer.visibility = View.VISIBLE
+//                binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).renderManeuvers(maneuvers)
             }
         )  
     }
@@ -483,7 +483,7 @@ class MapboxNavigationFreeDriveView(private val context: ThemedReactContext, pri
                 message = "Route updated",
                 duration = 2000L
             )
-            binding.statusView.render(status)
+//            binding.statusView.render(status)
         } else {
             // remove route line from the map
             mapboxMap.getStyle()?.let { style ->
@@ -688,7 +688,7 @@ class MapboxNavigationFreeDriveView(private val context: ThemedReactContext, pri
                     duration = 2000L,
                     icon = R.drawable.mapbox_ic_sound_off
                 )
-                binding.statusView.render(status)
+//                binding.statusView.render(status)
             } else {
                 voiceInstructionsPlayer.volume(SpeechVolume(1f))
 
@@ -697,7 +697,7 @@ class MapboxNavigationFreeDriveView(private val context: ThemedReactContext, pri
                     duration = 2000L,
                     icon = R.drawable.mapbox_ic_sound_on
                 )
-                binding.statusView.render(status)
+//                binding.statusView.render(status)
             }
         }
     }
@@ -706,9 +706,9 @@ class MapboxNavigationFreeDriveView(private val context: ThemedReactContext, pri
         this.showSpeedLimit = show
 
         if (show) {
-            binding.speedLimitView.visibility = View.VISIBLE
+//            binding.speedLimitView.visibility = View.VISIBLE
         } else {
-            binding.speedLimitView.visibility = View.GONE
+//            binding.speedLimitView.visibility = View.GONE
         }
     }
 
@@ -716,19 +716,19 @@ class MapboxNavigationFreeDriveView(private val context: ThemedReactContext, pri
         this.speedLimitAnchor = anchor
 
         if (anchor != null) {
-            (binding.speedLimitView.layoutParams as ConstraintLayout.LayoutParams).apply {
-                marginStart = if (anchor!!.size > 0) (anchor!!.get(0) * pixelDensity).toInt() else (20 * pixelDensity).toInt()
-                topMargin = if (anchor!!.size > 1) (anchor!!.get(1) * pixelDensity).toInt() else (20 * pixelDensity).toInt()
-                marginEnd = if (anchor!!.size > 2) (anchor!!.get(2) * pixelDensity).toInt() else (20 * pixelDensity).toInt()
-                bottomMargin = if (anchor!!.size > 3) (anchor!!.get(3) * pixelDensity).toInt() else 0
-            }
+//            (binding.speedLimitView.layoutParams as ConstraintLayout.LayoutParams).apply {
+//                marginStart = if (anchor!!.size > 0) (anchor!!.get(0) * pixelDensity).toInt() else (20 * pixelDensity).toInt()
+//                topMargin = if (anchor!!.size > 1) (anchor!!.get(1) * pixelDensity).toInt() else (20 * pixelDensity).toInt()
+//                marginEnd = if (anchor!!.size > 2) (anchor!!.get(2) * pixelDensity).toInt() else (20 * pixelDensity).toInt()
+//                bottomMargin = if (anchor!!.size > 3) (anchor!!.get(3) * pixelDensity).toInt() else 0
+//            }
         } else {
-            (binding.speedLimitView.layoutParams as ConstraintLayout.LayoutParams).apply {
-                marginStart = (20 * pixelDensity).toInt()
-                topMargin = (20* pixelDensity).toInt()
-                marginStart = (20 * pixelDensity).toInt()
-                bottomMargin = 0
-            }
+//            (binding.speedLimitView.layoutParams as ConstraintLayout.LayoutParams).apply {
+//                marginStart = (20 * pixelDensity).toInt()
+//                topMargin = (20* pixelDensity).toInt()
+//                marginStart = (20 * pixelDensity).toInt()
+//                bottomMargin = 0
+//            }
         }
     }
 
@@ -737,19 +737,19 @@ class MapboxNavigationFreeDriveView(private val context: ThemedReactContext, pri
         this.maneuverAnchor = anchor
 
         if (anchor != null) {
-            (binding.maneuverContainer.layoutParams as ConstraintLayout.LayoutParams).apply {
-                marginStart = if (anchor!!.size > 0) (anchor!!.get(0) * pixelDensity).toInt() else (20 * pixelDensity).toInt()
-                topMargin = if (anchor!!.size > 1) (anchor!!.get(1) * pixelDensity).toInt() else (20 * pixelDensity).toInt()
-                marginEnd = if (anchor!!.size > 2) (anchor!!.get(2) * pixelDensity).toInt() else (20 * pixelDensity).toInt()
-                bottomMargin = if (anchor!!.size > 3) (anchor!!.get(3) * pixelDensity).toInt() else 0
-            }
+//            (binding.maneuverContainer.layoutParams as ConstraintLayout.LayoutParams).apply {
+//                marginStart = if (anchor!!.size > 0) (anchor!!.get(0) * pixelDensity).toInt() else (20 * pixelDensity).toInt()
+//                topMargin = if (anchor!!.size > 1) (anchor!!.get(1) * pixelDensity).toInt() else (20 * pixelDensity).toInt()
+//                marginEnd = if (anchor!!.size > 2) (anchor!!.get(2) * pixelDensity).toInt() else (20 * pixelDensity).toInt()
+//                bottomMargin = if (anchor!!.size > 3) (anchor!!.get(3) * pixelDensity).toInt() else 0
+//            }
         } else {
-            (binding.maneuverContainer.layoutParams as ConstraintLayout.LayoutParams).apply {
-                marginStart = (20 * pixelDensity).toInt()
-                topMargin = (20* pixelDensity).toInt()
-                marginStart = (20 * pixelDensity).toInt()
-                bottomMargin = 0
-            }
+//            (binding.maneuverContainer.layoutParams as ConstraintLayout.LayoutParams).apply {
+//                marginStart = (20 * pixelDensity).toInt()
+//                topMargin = (20* pixelDensity).toInt()
+//                marginStart = (20 * pixelDensity).toInt()
+//                bottomMargin = 0
+//            }
         }
     }
 
@@ -889,9 +889,9 @@ class MapboxNavigationFreeDriveView(private val context: ThemedReactContext, pri
         speedLimitApi = MapboxSpeedLimitApi(speedLimitFormatter)
 
         if (this.showSpeedLimit) {
-            binding.speedLimitView.visibility = View.VISIBLE
+//            binding.speedLimitView.visibility = View.VISIBLE
         } else {
-            binding.speedLimitView.visibility = View.GONE
+//            binding.speedLimitView.visibility = View.GONE
         }
 
         /**
@@ -998,32 +998,32 @@ class MapboxNavigationFreeDriveView(private val context: ThemedReactContext, pri
         binding.mapView.gestures.addOnMapClickListener(mapClickListener)
 
         //binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).updateUpcomingManeuversVisibility(View.GONE)
-        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).updatePrimaryManeuverTextAppearance(R.style.PrimaryManeuverTextAppearance)
-        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).updateSecondaryManeuverTextAppearance(R.style.SecondaryManeuverTextAppearance)
-        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).updateSubManeuverTextAppearance(R.style.SubManeuverTextAppearance)
-        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).updateStepDistanceTextAppearance(R.style.StepDistanceTextAppearance)
-        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).updateUpcomingPrimaryManeuverTextAppearance(R.style.UpcomingPrimaryManeuverTextAppearance)
-        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).updateUpcomingSecondaryManeuverTextAppearance(R.style.UpcomingSecondaryManeuverTextAppearance)
-        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).updateUpcomingManeuverStepDistanceTextAppearance(R.style.UpcomingManeuverStepDistanceTextAppearance)
-        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).addOnLayoutChangeListener { view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
-            var hasChanged = false
-
-            if (view.height != oldBottom - oldTop) {
-                hasChanged = true
-            }
-            if (view.width != oldRight - oldLeft) {
-                hasChanged = true
-            }
-
-            if (hasChanged) {
-                val event = Arguments.createMap()
-                event.putInt("width", (view.width / pixelDensity).toInt())
-                event.putInt("height", (view.height / pixelDensity).toInt())
-                context
-                    .getJSModule(RCTEventEmitter::class.java)
-                    .receiveEvent(id, "onManeuverSizeChange", event)
-            }
-        }
+//        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).updatePrimaryManeuverTextAppearance(R.style.PrimaryManeuverTextAppearance)
+//        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).updateSecondaryManeuverTextAppearance(R.style.SecondaryManeuverTextAppearance)
+//        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).updateSubManeuverTextAppearance(R.style.SubManeuverTextAppearance)
+//        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).updateStepDistanceTextAppearance(R.style.StepDistanceTextAppearance)
+//        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).updateUpcomingPrimaryManeuverTextAppearance(R.style.UpcomingPrimaryManeuverTextAppearance)
+//        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).updateUpcomingSecondaryManeuverTextAppearance(R.style.UpcomingSecondaryManeuverTextAppearance)
+//        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).updateUpcomingManeuverStepDistanceTextAppearance(R.style.UpcomingManeuverStepDistanceTextAppearance)
+//        binding.maneuverContainer.findViewById<MapboxManeuverView>(R.id.maneuverView).addOnLayoutChangeListener { view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+//            var hasChanged = false
+//
+//            if (view.height != oldBottom - oldTop) {
+//                hasChanged = true
+//            }
+//            if (view.width != oldRight - oldLeft) {
+//                hasChanged = true
+//            }
+//
+//            if (hasChanged) {
+//                val event = Arguments.createMap()
+//                event.putInt("width", (view.width / pixelDensity).toInt())
+//                event.putInt("height", (view.height / pixelDensity).toInt())
+//                context
+//                    .getJSModule(RCTEventEmitter::class.java)
+//                    .receiveEvent(id, "onManeuverSizeChange", event)
+//            }
+//        }
     }
 
     private fun fetchRoutes(routeWaypoints: List<Point>, routeWaypointNames: List<String>, onSuccess: (routes: List<NavigationRoute>) -> Unit) {
@@ -1146,7 +1146,7 @@ class MapboxNavigationFreeDriveView(private val context: ThemedReactContext, pri
         mapboxNavigation.unregisterRouteAlternativesObserver(alternativesObserver)
         viewportDataSource.clearRouteData()
         viewportDataSource.evaluate()
-        binding.maneuverContainer.visibility = View.GONE
+//        binding.maneuverContainer.visibility = View.GONE
     }
 
     private fun clearMap() {

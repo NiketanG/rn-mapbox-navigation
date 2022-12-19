@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import MapboxNavigation from '@stoovo/rn-mapbox-navigation';
+import { MapboxNavigation } from '@stoovo/rn-mapbox-navigation';
 
 const Navigation = props => {
   // eslint-disable-next-line react/prop-types
@@ -12,6 +12,7 @@ const Navigation = props => {
         <MapboxNavigation
           showsEndOfRouteFeedback={true}
           shouldSimulateRoute={true}
+          locale="en_US"
           origin={origin}
           destination={destination}
           hideStatusView
@@ -41,8 +42,6 @@ const Navigation = props => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     height: '100%',

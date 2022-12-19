@@ -85,7 +85,7 @@ class MapboxNavigationFreeDriveView: UIView, NavigationMapViewDelegate, Navigati
     didSet {
       if (embedded == true && navigationMapView != nil) {
         if (traversedRouteColor != nil) {
-          navigationMapView.traversedRouteColor = UIColor(hex: traversedRouteColor as String)
+            navigationMapView.traversedRouteColor = UIColor(hex: traversedRouteColor as! String)
         } else {
           navigationMapView.traversedRouteColor = UIColor.clear
         }
@@ -199,7 +199,7 @@ class MapboxNavigationFreeDriveView: UIView, NavigationMapViewDelegate, Navigati
               self.onRouteChange?(["distance": currentRoute.distance, "expectedTravelTime": currentRoute.expectedTravelTime, "typicalTravelTime": currentRoute.typicalTravelTime])
 
               if (cameraType == "follow") {
-                self.follow()
+                self.follow(padding: padding)
               } else if (cameraType == "overview") {
                 self.moveToOverview(padding: padding)
               }
@@ -364,7 +364,7 @@ class MapboxNavigationFreeDriveView: UIView, NavigationMapViewDelegate, Navigati
     navigationMapView.showsCongestionForAlternativeRoutes = true
     navigationMapView.showsRestrictedAreasOnRoute = true
     navigationMapView.routeCasingColor = UIColor(hex: routeCasingColor as String)
-    navigationMapView.traversedRouteColor = UIColor(hex: traversedRouteColor as String)
+      navigationMapView.traversedRouteColor = UIColor(hex: traversedRouteColor as! String)
     navigationMapView.trafficUnknownColor = UIColor(hex: trafficUnknownColor as String)
     navigationMapView.trafficLowColor = UIColor(hex: trafficLowColor as String)
     navigationMapView.trafficModerateColor = UIColor(hex: trafficModerateColor as String)

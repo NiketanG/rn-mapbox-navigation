@@ -12,6 +12,12 @@ import com.mapbox.maps.ResourceOptionsManager
 import com.mapbox.maps.TileStoreUsageMode
 import javax.annotation.Nonnull
 
+class CustomMarkerParameter {
+    var latitude: Double? = null
+    var longitude: Double? = null
+    var iconSize:Double = 2.0
+}
+
 class MapboxNavigationManager(var mCallerContext: ReactApplicationContext) : SimpleViewManager<MapboxNavigationView>() {
     private var accessToken: String? = null
 
@@ -54,6 +60,20 @@ class MapboxNavigationManager(var mCallerContext: ReactApplicationContext) : Sim
         )
     }
 
+    override fun getCommandsMap(): MutableMap<String, Int> {
+        return mutableMapOf(
+            "addMarker" to 1,
+            "clearMarkers" to 2,
+        )
+    }
+
+    override fun receiveCommand(view: MapboxNavigationView, commandId: Int, args: ReadableArray?) {
+        when (commandId) {
+            1 -> setMarkers(view, args)
+            2 -> view.clearMarkers()
+        }
+    }
+
     @ReactProp(name = "origin")
     fun setOrigin(view: MapboxNavigationView, sources: ReadableArray?) {
         if (sources == null) {
@@ -82,8 +102,29 @@ class MapboxNavigationManager(var mCallerContext: ReactApplicationContext) : Sim
         view.setShowsEndOfRouteFeedback(showsEndOfRouteFeedback)
     }
 
+    @ReactProp(name = "markers")
+    fun setMarkers(view: MapboxNavigationView, markers: ReadableArray?) {
+        if (markers == null) {
+            view.setMarkers(null)
+            return
+        }
+        for (i in 0 until markers.size()) {
+            val marker = markers.getMap(i)
+            val markerParameter = CustomMarkerParameter()
+            markerParameter.latitude = marker?.getDouble("latitude")
+            markerParameter.longitude = marker?.getDouble("longitude")
+            markerParameter.iconSize = marker?.getDouble("iconSize") ?: 2.0
+            view.addMarkerToMap(markerParameter)
+        }
+    }
+
     @ReactProp(name = "mute")
     fun setMute(view: MapboxNavigationView, mute: Boolean) {
         view.setMute(mute)
+    }
+
+    @ReactProp(name = "locale")
+    fun setLocale(view: MapboxNavigationView, locale: String) {
+        view.setLocale(locale)
     }
 }

@@ -12,53 +12,72 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-        
+
     <androidx.cardview.widget.CardView
-        android:id="@+id/maneuverContainer"
+        android:id="@+id/tripProgressCard"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="26dp"
-        android:visibility="gone"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/maneuver_bg"
+        android:layout_height="80dp"
+        android:visibility="invisible"
+        app:cardElevation="8dp"
+        app:cardUseCompatPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.mapbox.navigation.ui.maneuver.view.MapboxManeuverView
-            android:id="@+id/maneuverView"
+        <com.mapbox.navigation.ui.tripprogress.view.MapboxTripProgressView
+            android:id="@+id/tripProgressView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/MapboxCustomManeuverStyle" />
+            android:layout_gravity="left"
+            />
 
+        <ImageView
+            android:id="@+id/stop"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="12dp"
+            app:tint="@android:color/darker_gray"
+            app:srcCompat="@android:drawable/ic_delete" />
     </androidx.cardview.widget.CardView>
 
-    <com.mapbox.navigation.ui.status.view.MapboxStatusView
-        android:id="@+id/statusView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:elevation="0dp"
-        android:background="@drawable/status_bg"
-        app:statusViewProgressBarTint="#FFFFFF"
-        app:statusViewIconTint="#FFFFFF"
-        app:statusViewTextAppearance="@style/StatusViewTextAppearance"
-        app:statusViewShowAnimator="@animator/scale_in"
-        app:statusViewHideAnimator="@animator/scale_out"
-        app:layout_constraintTop_toBottomOf="@id/maneuverContainer"
+    <com.mapbox.navigation.ui.maneuver.view.MapboxManeuverView
+        android:id="@+id/maneuverView"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_margin="4dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.mapbox.navigation.ui.speedlimit.view.MapboxSpeedLimitView
-        android:id="@+id/speedLimitView"
+    <com.mapbox.navigation.ui.voice.view.MapboxSoundButton
+        android:id="@+id/soundButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/maneuverContainer"
-        style="@style/MapboxCustomSpeedLimitStyle" />
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/maneuverView" />
+
+    <com.mapbox.navigation.ui.maps.camera.view.MapboxRouteOverviewButton
+        android:id="@+id/routeOverview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/soundButton" />
+
+    <com.mapbox.navigation.ui.maps.camera.view.MapboxRecenterButton
+        android:id="@+id/recenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/routeOverview" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

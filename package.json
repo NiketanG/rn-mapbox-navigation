@@ -1,7 +1,7 @@
 {
   "name": "@stoovo/rn-mapbox-navigation",
   "title": "React Native Mapbox Navigation",
-  "version": "1.0.1-0",
+  "version": "1.0.1-1",
   "description": "Mapbox Navigation for React Native.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

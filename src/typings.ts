@@ -60,6 +60,7 @@ export interface IMapboxNavigationProps {
   showsEndOfRouteFeedback?: boolean;
   hideStatusView?: boolean;
   mute?: boolean;
+  locale?: string;
 }
 
 export interface IMapboxNavigationFreeDriveProps {
