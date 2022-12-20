@@ -80,10 +80,7 @@ class MapboxNavigationView: UIView, NavigationMapViewDelegate, NavigationViewCon
     navigationViewportDataSource.followingMobileCamera.zoom = 13.0
     navigationMapView.navigationCamera.viewportDataSource = navigationViewportDataSource
     navigationMapView.localizeLabels();
-      
-      
-      
-      
+
     //parentVC.addChild(navigationMapView)
     addSubview(navigationMapView)
     //navigationMapView.frame = bounds
@@ -100,10 +97,9 @@ class MapboxNavigationView: UIView, NavigationMapViewDelegate, NavigationViewCon
     let destinationWaypoint = Waypoint(coordinate: CLLocationCoordinate2D(latitude: destination[1] as! CLLocationDegrees, longitude: destination[0] as! CLLocationDegrees))
 
     let options = NavigationRouteOptions(waypoints: [originWaypoint, destinationWaypoint])
-      
+
     options.locale = Locale(identifier: self.locale as String)
-      
-      
+
     Directions.shared.calculate(options) { [weak self] (_, result) in
       guard let strongSelf = self, let parentVC = strongSelf.parentViewController else {
         return
@@ -144,8 +140,15 @@ class MapboxNavigationView: UIView, NavigationMapViewDelegate, NavigationViewCon
 //          strongSelf.navViewController = vc
       }
       
-        strongSelf.embedded = false
-        strongSelf.embedding = false
+      strongSelf.embedded = false
+      strongSelf.embedding = false
+    }
+    navigationMapView?.mapView.mapboxMap.onNext(.mapLoaded) { _ in
+      do {
+          try self.navigationMapView.mapView.mapboxMap.style.localizeLabels(into: Locale(identifier: self.locale as String))
+      } catch {
+        print("[localizeLabels] Ran into an error updating the layer: \(error)")
+      }
     }
   }
   
