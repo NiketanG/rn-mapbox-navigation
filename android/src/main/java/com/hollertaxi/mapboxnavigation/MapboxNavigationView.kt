@@ -659,6 +659,10 @@ class MapboxNavigationView(private val context: ThemedReactContext, private val 
         // set initial sounds button state
         binding.soundButton.unmute()
 
+        mapboxMap.getStyle {
+            it.localizeLabels(Locale.forLanguageTag(voiceLocale))
+        }
+
         // start the trip session to being receiving location updates in free drive
         // and later when a route is set also receiving route progress updates
         mapboxNavigation.startTripSession()
@@ -732,6 +736,7 @@ class MapboxNavigationView(private val context: ThemedReactContext, private val 
                 RouteOptions.builder()
                     .applyDefaultNavigationOptions()
                     .applyLanguageAndVoiceUnitOptions(context)
+                    .language(voiceLocale)
                     .coordinatesList(listOf(origin, destination))
                     .profile(DirectionsCriteria.PROFILE_DRIVING)
                     .steps(true)
