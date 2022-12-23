@@ -20,6 +20,8 @@ extension UIView {
 class MapboxNavigationView: UIView, NavigationMapViewDelegate, NavigationViewControllerDelegate {
   var navigationMapView: NavigationMapView!
   var navigationRouteOptions: NavigationRouteOptions!
+  var pointAnnotationManager: PointAnnotationManager? = nil
+
   var embedded: Bool
   var embedding: Bool
   
@@ -36,6 +38,23 @@ class MapboxNavigationView: UIView, NavigationMapViewDelegate, NavigationViewCon
   @objc var onError: RCTDirectEventBlock?
   @objc var onCancelNavigation: RCTDirectEventBlock?
   @objc var onArrive: RCTDirectEventBlock?
+
+  @objc func addMarker(latitude: NSNumber, longitude: NSNumber, iconSize: NSNumber) {
+    if (self.pointAnnotationManager != nil) {
+      let pointCoordinate = CLLocationCoordinate2D(latitude: latitude as! CLLocationDegrees, longitude: longitude as! CLLocationDegrees)
+      var customPointAnnotation = PointAnnotation(coordinate: pointCoordinate)
+      customPointAnnotation.image = .init(image: UIImage(named: "default_marker")!, name: "red_pin")
+            
+      pointAnnotationManager?.annotations.append(customPointAnnotation)
+    }
+  }
+    
+  @objc func clearMarkers() {
+    if (self.pointAnnotationManager != nil) {
+      pointAnnotationManager?.annotations = []
+      pointAnnotationManager?.annotations.removeAll()
+    }
+  }
   
   override init(frame: CGRect) {
     self.embedded = false
@@ -170,5 +189,15 @@ class MapboxNavigationView: UIView, NavigationMapViewDelegate, NavigationViewCon
   func navigationViewController(_ navigationViewController: NavigationViewController, didArriveAt waypoint: Waypoint) -> Bool {
     onArrive?(["message": ""]);
     return true;
+  }
+
+  // Delegate method, which is called whenever final destination `PointAnnotation` is added on
+  // `MapView`.
+  func navigationMapView(_ navigationMapView: NavigationMapView, didAdd finalDestinationAnnotation: PointAnnotation, pointAnnotationManager: PointAnnotationManager) {
+      self.pointAnnotationManager = pointAnnotationManager
+  }
+
+  func navigationViewController(_ navigationViewController: NavigationViewController, didAdd finalDestinationAnnotation: PointAnnotation, pointAnnotationManager: PointAnnotationManager) {
+      self.pointAnnotationManager = pointAnnotationManager
   }
 }

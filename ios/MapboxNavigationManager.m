@@ -15,4 +15,15 @@ RCT_EXPORT_VIEW_PROPERTY(hideStatusView, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(mute, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(locale, NSString)
 
+RCT_EXTERN_METHOD(
+  addMarker: (nonnull NSNumber *)node
+  latitude: (nonnull NSNumber *)latitude
+  longitude: (nonnull NSNumber *)longitude
+  iconSize: (nonnull NSNumber *)iconSize
+)
+
+RCT_EXTERN_METHOD(
+  clearMarkers: (nonnull NSNumber *)node
+)
+
 @end

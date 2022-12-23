@@ -6,10 +6,31 @@ const Navigation = props => {
   // eslint-disable-next-line react/prop-types
   const {origin, destination} = props;
 
+  const mapRef = useRef(null);
+
+  const addMarkers = () => {
+    mapRef?.current?.addMarker({
+      latitude: 39.760194,
+      longitude: -105.140629, 
+      iconSize: 2,
+    });
+  }
+
+  const clearMarkers = () => {
+    mapRef?.current?.clearMarkers()
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      addMarkers()
+    }, 5000);
+  }, [])
+
   return (
     <View style={styles.container}>
       <View style={styles.mapContainer}>
         <MapboxNavigation
+          ref={mapRef}
           showsEndOfRouteFeedback={true}
           shouldSimulateRoute={true}
           locale="en_US"

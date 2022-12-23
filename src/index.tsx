@@ -11,11 +11,49 @@ import {
 import {
   IMapboxNavigationFreeDriveProps,
   IMapboxNavigationProps,
+  CustomMarkerParams
 } from "./typings";
 
-const MapboxNavigation = (props: IMapboxNavigationProps) => {
-  return <RNMapboxNavigation style={styles.container} {...props} />;
-};
+// const MapboxNavigation = (props: IMapboxNavigationProps) => {
+//   return <RNMapboxNavigation style={styles.container} {...props} />;
+// };
+
+const MapboxNavigation = React.forwardRef(
+  (props: IMapboxNavigationProps, ref) => {
+    const mapboxNavigationRef = React.useRef();
+
+    React.useImperativeHandle(ref, () => ({
+      addMarker,
+      clearMarkers,
+    }));
+
+    const addMarker = (args: CustomMarkerParams) => {
+      UIManager.dispatchViewManagerCommand(
+        findNodeHandle(mapboxNavigationRef.current),
+        UIManager.MapboxNavigation.Commands.addMarker,
+        [args.latitude, args.longitude, args.iconSize]
+      );
+    };
+
+    const clearMarkers = () => {
+      UIManager.dispatchViewManagerCommand(
+        findNodeHandle(mapboxNavigationRef.current),
+        UIManager.MapboxNavigation.Commands.clearMarkers,
+        []
+      );
+    };
+
+    return (
+      <RNMapboxNavigation
+        ref={mapboxNavigationRef}
+        style={styles.container}
+        {...{
+          ...props,
+        }}
+      />
+    );
+  }
+);
 
 const MapboxNavigationFreeDrive = React.forwardRef(
   (props: IMapboxNavigationFreeDriveProps, ref) => {
