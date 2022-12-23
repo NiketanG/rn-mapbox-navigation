@@ -9,9 +9,9 @@ import {
 } from "react-native";
 
 import {
+  CustomMarkerParams,
   IMapboxNavigationFreeDriveProps,
   IMapboxNavigationProps,
-  CustomMarkerParams
 } from "./typings";
 
 // const MapboxNavigation = (props: IMapboxNavigationProps) => {

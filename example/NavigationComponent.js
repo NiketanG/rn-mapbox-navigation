@@ -1,6 +1,6 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
-import { MapboxNavigation } from '@stoovo/rn-mapbox-navigation';
+import {MapboxNavigation} from '@stoovo/rn-mapbox-navigation';
 
 const Navigation = props => {
   // eslint-disable-next-line react/prop-types
@@ -10,21 +10,26 @@ const Navigation = props => {
 
   const addMarkers = () => {
     mapRef?.current?.addMarker({
-      latitude: 39.760194,
-      longitude: -105.140629, 
+      latitude: origin[1],
+      longitude: origin[0],
       iconSize: 2,
     });
-  }
+    mapRef?.current?.addMarker({
+      latitude: destination[1],
+      longitude: destination[0],
+      iconSize: 2,
+    });
+  };
 
   const clearMarkers = () => {
-    mapRef?.current?.clearMarkers()
-  }
+    mapRef?.current?.clearMarkers();
+  };
 
   useEffect(() => {
     setTimeout(() => {
-      addMarkers()
+      addMarkers();
     }, 5000);
-  }, [])
+  }, []);
 
   return (
     <View style={styles.container}>

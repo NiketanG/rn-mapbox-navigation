@@ -48,6 +48,12 @@ type OnManeuverSizeChangeEvent = {
   };
 };
 
+export type CustomMarkerParams = {
+  latitude: number;
+  longitude: number;
+  iconSize?: number;
+};
+
 export interface IMapboxNavigationProps {
   origin: Coordinate;
   destination: Coordinate;

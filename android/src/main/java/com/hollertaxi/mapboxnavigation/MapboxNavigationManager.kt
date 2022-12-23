@@ -69,7 +69,7 @@ class MapboxNavigationManager(var mCallerContext: ReactApplicationContext) : Sim
 
     override fun receiveCommand(view: MapboxNavigationView, commandId: Int, args: ReadableArray?) {
         when (commandId) {
-            1 -> setMarkers(view, args)
+            1 -> addMarker(view, args)
             2 -> view.clearMarkers()
         }
     }
@@ -100,6 +100,14 @@ class MapboxNavigationManager(var mCallerContext: ReactApplicationContext) : Sim
     @ReactProp(name = "showsEndOfRouteFeedback")
     fun setShowsEndOfRouteFeedback(view: MapboxNavigationView, showsEndOfRouteFeedback: Boolean) {
         view.setShowsEndOfRouteFeedback(showsEndOfRouteFeedback)
+    }
+
+    fun addMarker(view: MapboxNavigationView, marker: ReadableArray?) {
+        val markerParameter = CustomMarkerParameter()
+        markerParameter.latitude = marker?.getDouble(0)
+        markerParameter.longitude = marker?.getDouble(1)
+        markerParameter.iconSize = marker?.getDouble(2) ?: 2.0
+        view.addMarkerToMap(markerParameter)
     }
 
     @ReactProp(name = "markers")
