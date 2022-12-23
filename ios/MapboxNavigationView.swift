@@ -43,7 +43,10 @@ class MapboxNavigationView: UIView, NavigationMapViewDelegate, NavigationViewCon
     if (self.pointAnnotationManager != nil) {
       let pointCoordinate = CLLocationCoordinate2D(latitude: latitude as! CLLocationDegrees, longitude: longitude as! CLLocationDegrees)
       var customPointAnnotation = PointAnnotation(coordinate: pointCoordinate)
-      customPointAnnotation.image = .init(image: UIImage(named: "default_marker")!, name: "red_pin")
+//      customPointAnnotation.image = .init(image: UIImage(named: "default_marker")!, name: "red_pin")
+      
+      let image = UIImage(named: "default_marker", in: .mapboxNavigation, compatibleWith: nil)!
+      customPointAnnotation.image = .init(image: image, name: "red_pin")
             
       pointAnnotationManager?.annotations.append(customPointAnnotation)
     }
@@ -143,7 +146,7 @@ class MapboxNavigationView: UIView, NavigationMapViewDelegate, NavigationViewCon
           vc.showsEndOfRouteFeedback = strongSelf.showsEndOfRouteFeedback
           StatusView.appearance().isHidden = strongSelf.hideStatusView
 
-          options.self.locale = Locale(identifier: self.locale as String)
+          options.self.locale = Locale(identifier: strongSelf.locale as String);
           NavigationSettings.shared.voiceMuted = strongSelf.mute;
 
           vc.delegate = strongSelf
