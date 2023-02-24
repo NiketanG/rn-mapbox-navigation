@@ -183,10 +183,16 @@ class MapboxNavigationView: UIView, NavigationMapViewDelegate, NavigationViewCon
   }
   
   func navigationViewControllerDidDismiss(_ navigationViewController: NavigationViewController, byCanceling canceled: Bool) {
-    if (!canceled) {
-      return;
-    }
-    onCancelNavigation?(["message": ""]);
+      if (!canceled) {
+        return;
+      }
+      onCancelNavigation?(["message": ""]);
+      navigationViewController.navigationService.stop()
+      navigationViewController.dismiss(animated: true)
+      self.parentViewController?.dismiss(animated: true)
+      
+      navigationMapView.parentViewController?.dismiss(animated: true)
+      self.parentViewController?.navigationController?.popViewController(animated: true)
   }
   
   func navigationViewController(_ navigationViewController: NavigationViewController, didArriveAt waypoint: Waypoint) -> Bool {

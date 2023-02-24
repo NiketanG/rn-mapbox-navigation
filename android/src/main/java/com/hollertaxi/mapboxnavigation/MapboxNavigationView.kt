@@ -511,12 +511,12 @@ class MapboxNavigationView(private val context: ThemedReactContext, private val 
         }
         // initialize the location puck
         binding.mapView.location.apply {
-            this.locationPuck = LocationPuck2D(
-                bearingImage = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.mapbox_navigation_puck_icon
-                )
-            )
+//            this.locationPuck = LocationPuck2D(
+//                bearingImage = ContextCompat.getDrawable(
+//                    context,
+//                    R.drawable.mapbox_navigation_puck_icon
+//                )
+//            )
             setLocationProvider(navigationLocationProvider)
             enabled = true
         }
