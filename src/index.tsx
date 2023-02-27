@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from "react";
 import {
   findNodeHandle,
@@ -6,6 +7,7 @@ import {
   requireNativeComponent,
   StyleSheet,
   UIManager,
+  ViewStyle,
 } from "react-native";
 
 import {
@@ -13,10 +15,6 @@ import {
   IMapboxNavigationFreeDriveProps,
   IMapboxNavigationProps,
 } from "./typings";
-
-// const MapboxNavigation = (props: IMapboxNavigationProps) => {
-//   return <RNMapboxNavigation style={styles.container} {...props} />;
-// };
 
 const MapboxNavigation = React.forwardRef(
   (props: IMapboxNavigationProps, ref) => {
@@ -30,7 +28,7 @@ const MapboxNavigation = React.forwardRef(
     const addMarker = (args: CustomMarkerParams) => {
       UIManager.dispatchViewManagerCommand(
         findNodeHandle(mapboxNavigationRef.current),
-        UIManager.MapboxNavigation.Commands.addMarker,
+        (UIManager as any).MapboxNavigation.Commands.addMarker,
         [args.latitude, args.longitude, args.iconSize]
       );
     };
@@ -38,7 +36,7 @@ const MapboxNavigation = React.forwardRef(
     const clearMarkers = () => {
       UIManager.dispatchViewManagerCommand(
         findNodeHandle(mapboxNavigationRef.current),
-        UIManager.MapboxNavigation.Commands.clearMarkers,
+        (UIManager as any).MapboxNavigation.Commands.clearMarkers,
         []
       );
     };
@@ -81,7 +79,8 @@ const MapboxNavigationFreeDrive = React.forwardRef(
     ) => {
       UIManager.dispatchViewManagerCommand(
         findNodeHandle(mapboxNavigationFreeDriveRef.current),
-        UIManager.MapboxNavigationFreeDrive.Commands.showRouteViaManager,
+        (UIManager as any).MapboxNavigationFreeDrive.Commands
+          .showRouteViaManager,
         [origin, destination, waypoints, styles, legIndex, cameraType, padding]
       );
     };
@@ -89,7 +88,8 @@ const MapboxNavigationFreeDrive = React.forwardRef(
     const clearRoute = () => {
       UIManager.dispatchViewManagerCommand(
         findNodeHandle(mapboxNavigationFreeDriveRef.current),
-        UIManager.MapboxNavigationFreeDrive.Commands.clearRouteViaManager,
+        (UIManager as any).MapboxNavigationFreeDrive.Commands
+          .clearRouteViaManager,
         []
       );
     };
@@ -97,7 +97,7 @@ const MapboxNavigationFreeDrive = React.forwardRef(
     const follow = (padding = []) => {
       UIManager.dispatchViewManagerCommand(
         findNodeHandle(mapboxNavigationFreeDriveRef.current),
-        UIManager.MapboxNavigationFreeDrive.Commands.followViaManager,
+        (UIManager as any).MapboxNavigationFreeDrive.Commands.followViaManager,
         [padding]
       );
     };
@@ -105,7 +105,8 @@ const MapboxNavigationFreeDrive = React.forwardRef(
     const moveToOverview = (padding = []) => {
       UIManager.dispatchViewManagerCommand(
         findNodeHandle(mapboxNavigationFreeDriveRef.current),
-        UIManager.MapboxNavigationFreeDrive.Commands.moveToOverviewViaManager,
+        (UIManager as any).MapboxNavigationFreeDrive.Commands
+          .moveToOverviewViaManager,
         [padding]
       );
     };
@@ -113,7 +114,8 @@ const MapboxNavigationFreeDrive = React.forwardRef(
     const fitCamera = (padding = []) => {
       UIManager.dispatchViewManagerCommand(
         findNodeHandle(mapboxNavigationFreeDriveRef.current),
-        UIManager.MapboxNavigationFreeDrive.Commands.fitCameraViaManager,
+        (UIManager as any).MapboxNavigationFreeDrive.Commands
+          .fitCameraViaManager,
         [padding]
       );
     };
@@ -129,7 +131,8 @@ const MapboxNavigationFreeDrive = React.forwardRef(
     ) => {
       UIManager.dispatchViewManagerCommand(
         findNodeHandle(mapboxNavigationFreeDriveRef.current),
-        UIManager.MapboxNavigationFreeDrive.Commands.startNavigationViaManager,
+        (UIManager as any).MapboxNavigationFreeDrive.Commands
+          .startNavigationViaManager,
         [origin, destination, waypoints, styles, legIndex, cameraType, padding]
       );
     };
@@ -137,7 +140,8 @@ const MapboxNavigationFreeDrive = React.forwardRef(
     const pauseNavigation = () => {
       UIManager.dispatchViewManagerCommand(
         findNodeHandle(mapboxNavigationFreeDriveRef.current),
-        UIManager.MapboxNavigationFreeDrive.Commands.pauseNavigationViaManager,
+        (UIManager as any).MapboxNavigationFreeDrive.Commands
+          .pauseNavigationViaManager,
         []
       );
     };
@@ -145,7 +149,8 @@ const MapboxNavigationFreeDrive = React.forwardRef(
     const stopNavigation = () => {
       UIManager.dispatchViewManagerCommand(
         findNodeHandle(mapboxNavigationFreeDriveRef.current),
-        UIManager.MapboxNavigationFreeDrive.Commands.stopNavigationViaManager,
+        (UIManager as any).MapboxNavigationFreeDrive.Commands
+          .stopNavigationViaManager,
         []
       );
     };
@@ -189,15 +194,22 @@ const MapboxNavigationFreeDrive = React.forwardRef(
   }
 );
 
-const RNMapboxNavigation = requireNativeComponent(
-  "MapboxNavigation",
-  MapboxNavigation
-);
+type MapboxNavigationType = React.ComponentType<IMapboxNavigationProps> & {
+  style: ViewStyle;
+};
 
-const RNMapboxNavigationFreeDrive = requireNativeComponent(
-  "MapboxNavigationFreeDrive",
-  MapboxNavigationFreeDrive
-);
+type MapboxNavigationFreeDriveType =
+  React.ComponentType<IMapboxNavigationFreeDriveProps> & {
+    style: ViewStyle;
+  };
+
+const RNMapboxNavigation =
+  requireNativeComponent<MapboxNavigationType>("MapboxNavigation");
+
+const RNMapboxNavigationFreeDrive =
+  requireNativeComponent<MapboxNavigationFreeDriveType>(
+    "MapboxNavigationFreeDrive"
+  );
 
 const styles = StyleSheet.create({
   container: {

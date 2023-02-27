@@ -7,6 +7,8 @@
     "strict": false,
     "jsx": "react-native",
     "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node"
   },
   "include": ["src"],
