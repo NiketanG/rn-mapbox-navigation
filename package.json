@@ -14,7 +14,14 @@
 		"lint:fix": "yarn run lint -- --fix",
 		"build": "tsc --project ./tsconfig.json"
 	},
-	"files": ["dist/**/*"],
+	"files": [
+		"android",
+		"!android/build",
+		"ios",
+		"!ios/build",
+		"dist",
+		"rn-mapbox-navigation.podspec"
+	],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/Stoovo/rn-mapbox-navigation.git",
